@@ -1,0 +1,6 @@
+{
+    "/":"get list of all the methods",
+    "/animals":"get /animals",
+    "/currencies":"get /currencies",
+    "/expressions":"get /expressions"
+}
