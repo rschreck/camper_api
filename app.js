@@ -17,7 +17,30 @@ app.get("/", (req, res) => {
 app.get("/v1/bootcamps", (req, res) => {
   res
     .status(200)
-    .json({ success: true, message: "show all bootcamps", data: [] });
+    .json({ success: true, message: "Show all bootcamps", data: [] });
+});
+app.post("/v1/bootcamps", (req, res) => {
+  res
+    .status(200)
+    .json({ success: true, message: "Create new bootcamp", data: [] });
+});
+app.put("/v1/bootcamps/:id", (req, res) => {
+  const { id } = req.params;
+  res
+    .status(200)
+    .json({ success: true, message: `Update bootcamp - ${id}`, data: [] });
+});
+app.get("/v1/bootcamps/:id", (req, res) => {
+  const { id } = req.params;
+  res
+    .status(200)
+    .json({ success: true, message: `Get bootcamp - ${id}`, data: [] });
+});
+app.delete("/v1/bootcamps/:id", (req, res) => {
+  const { id } = req.params;
+  res
+    .status(200)
+    .json({ success: true, message: `Delete bootcamp - ${id}`, data: [] });
 });
 app.listen(PORT, () => {
   console.log(
