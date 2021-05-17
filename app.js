@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+//Body Parser
+app.use(express.json());
 const dotenv = require("dotenv");
 const colors = require("colors");
 const fs = require("fs");

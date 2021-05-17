@@ -1,4 +1,4 @@
-//  @desc   Get all bootcamps
+const Bootcamp = require("../models/Bootcamp");
 //  @routes Get /v1/bootcamps
 //  @access Public
 getBootcamps = (req, res, next) => {
@@ -18,10 +18,11 @@ getBootcamp = (req, res, next) => {
 //  @desc   create single bootcamp
 //  @routes POST /v1/bootcamps/:id
 //  @access Public
-createBootcamp = (req, res, next) => {
+createBootcamp = async (req, res, next) => {
+  const bootcamp = await Bootcamp.create(req.body);
   res
-    .status(200)
-    .json({ success: true, message: "Create new bootcamp", data: [] });
+    .status(201)
+    .json({ success: true, message: "Create new bootcamp", data: bootcamp });
 };
 //  @desc   update single bootcamp
 //  @routes PUT /v1/bootcamps/:id
