@@ -6,7 +6,7 @@ app.use(express.json());
 const dotenv = require("dotenv");
 const colors = require("colors");
 const fs = require("fs");
-const connectDB = require("./config/db");
+const connectDB = require("./models/db");
 //Route files
 const bootcamps = require("./routes/bootcamp");
 const root = require("./routes/root");
