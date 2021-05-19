@@ -4,9 +4,12 @@ const Bootcamp = require("../models/Bootcamp");
 getBootcamps = async (req, res, next) => {
   try {
     const bootcamps = await Bootcamp.find();
-    res
-      .status(200)
-      .json({ success: true, message: "Show all bootcamps", data: bootcamps });
+    res.status(200).json({
+      success: true,
+      message: "Show all bootcamps",
+      data: bootcamps,
+      count: bootcamps.length,
+    });
   } catch (err) {
     res
       .status(400)
@@ -31,10 +34,9 @@ getBootcamp = async (req, res, next) => {
     res
       .status(200)
       .json({ success: true, message: `Get bootcamp - ${id}`, data: bootcamp });
-  } catch (error) {
-    res
-      .status(400)
-      .json({ success: false, message: "Error get a bootcamp", data: [] });
+  } catch (err) {
+    //console.log(`eeerrrr`);
+    next(err);
   }
 };
 

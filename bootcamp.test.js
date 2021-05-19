@@ -41,23 +41,26 @@ describe("app", () => {
           done(err);
         });
     });
-    it("Put a particular bootcamp", (done) => {
+    it("Put a particular bootcamp - 60a25889c01cc71d0ce194d9", (done) => {
       request(app)
-        .put("/v1/bootcamps/5")
+        .put("/v1/bootcamps/60a25889c01cc71d0ce194d9")
         .expect(200)
         .end((err, response) => {
           expect(response.body).to.have.property("success").to.equal(true);
 
-          expect(response.body).to.have.property("message").to.include("5");
+          expect(response.body)
+            .to.have.property("message")
+            .to.include("60a25889c01cc71d0ce194d9");
           done(err);
         });
     });
-    it("Get a particular bootcamp", (done) => {
+    it("Get a particular bootcamp - 60a25889c01cc71d0ce194d9", (done) => {
       request(app)
-        .get("/v1/bootcamps/15")
+        .get("/v1/bootcamps/60a25889c01cc71d0ce194d9")
         .expect(200)
         .end((err, response) => {
           expect(response.body).to.have.property("success").to.equal(true);
+          done(err);
         });
     });
     it("Delete a particular bootcamp", (done) => {
