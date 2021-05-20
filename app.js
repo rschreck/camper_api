@@ -38,10 +38,10 @@ const server = app.listen(PORT, () => {
   );
 });
 //handle unhandled conditions
-process.on("unhandledRejection", (err, promise) => {
-  console.log(`Error ${err.message}`.red.bold);
-  server.close(() => {
-    process.exit(1);
-  });
-});
+// process.on("unhandledRejection", (err, promise) => {
+//   console.log(`Error ${err.message}`.red.bold);
+//   server.close(() => {
+//     process.exit(1);
+//   });
+// });
 module.exports = app;
