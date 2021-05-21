@@ -6,3 +6,6 @@
 /v1/bootcamp/60a2568329ace81dc027228b GET
 /v1/bootcamp/60a2568329ace81dc027228b PUT
 /v1/bootcamp/60a2568329ace81dc027228b DELETE
+
+node seeder.js -i
+node seeder.js -d
