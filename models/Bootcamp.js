@@ -11,6 +11,7 @@ const BootcampSchema = new mongoose.Schema({
   },
   slug: String,
   address: String,
+  averageCost: Number,
   description: {
     type: String,
     required: [true, "Please add a description"],

@@ -5,12 +5,21 @@ const asyncHandler = require("../middleware/asyncHandler");
 //  @routes Get /v1/bootcamps
 //  @access Public
 getBootcamps = asyncHandler(async (req, res, next) => {
-  const bootcamps = await Bootcamp.find();
+  let queryString = JSON.stringify(req.query);
+  queryString = queryString.replace(
+    /\b(gt|lt|gte|lte|in)\b/g,
+    (match) => `$${match}`
+  );
+  console.log(JSON.parse(queryString));
+  //queryString = { averageCost: { $gte: 20 } };
+  let query = Bootcamp.find(JSON.parse(queryString));
+  //let query = Bootcamp.find({ averageCost: { $gte: "20" } });
+  const bootcamps = await query;
   res.status(200).json({
     success: true,
     message: "Show all bootcamps",
-    data: bootcamps,
     count: bootcamps.length,
+    data: bootcamps,
   });
 });
 
