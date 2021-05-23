@@ -12,6 +12,7 @@ getBootcamps = asyncHandler(async (req, res, next) => {
   );
   console.log(JSON.parse(queryString));
   //queryString = { averageCost: { $gte: 20 } };
+  //this needs to be fixed for gte, in etc
   let query = Bootcamp.find(JSON.parse(queryString));
   //let query = Bootcamp.find({ averageCost: { $gte: "20" } });
   const bootcamps = await query;
