@@ -32,6 +32,7 @@
     "rewire": "^4.0.1",
     "sinon": "^5.0.10",
     "sinon-chai": "^3.1.0",
+    "slugify": "^1.5.3",
     "snowflake-sdk": "^1.5.3",
     "supertest": "^3.4.2"
   }

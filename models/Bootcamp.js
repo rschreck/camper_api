@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { default: slugify } = require("slugify");
 const geocoder = require("../utils/geoCoder");
 const BootcampSchema = new mongoose.Schema({
   name: {
@@ -88,6 +89,11 @@ const BootcampSchema = new mongoose.Schema({
     },
     lastUpdatedBy: String,
   },
+});
+// Create bootamp slug from the name
+BootcampSchema.pre("save", async function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
 });
 //Geocode & location fields
 BootcampSchema.pre("save", async function (next) {
