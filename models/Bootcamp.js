@@ -47,49 +47,52 @@ const BootcampSchema = new mongoose.Schema({
     state: String,
     zipcode: String,
     country: String,
-    careers: {
-      type: [String],
-      required: true,
-      enum: [
-        "Web Development",
-        "Project Management",
-        "Scrum Master",
-        "Business",
-        "Other",
-      ],
-    },
-    averageRating: {
-      type: Number,
-      min: [1, "Rating must be atleast 1"],
-      min: [10, "Rating can not be more than 10"],
-    },
-    averageCost: Number,
-    photo: {
-      type: String,
-      default: "no-photo.jpg",
-    },
-    housing: {
-      type: Boolean,
-      default: false,
-    },
-    jobAssistance: {
-      type: Boolean,
-      default: false,
-    },
-    jobGuarantee: {
-      type: Boolean,
-      default: false,
-    },
-    acceptGi: {
-      type: Boolean,
-      default: false,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    lastUpdatedBy: String,
   },
+  careers: {
+    type: [String],
+    required: true,
+    enum: [
+      "Web Development",
+      "Project Management",
+      "Scrum Master",
+      "Business",
+      "UI/UX",
+      "Other",
+      "Mobile Development",
+      "Data Science",
+    ],
+  },
+  averageRating: {
+    type: Number,
+    min: [1, "Rating must be atleast 1"],
+    min: [10, "Rating can not be more than 10"],
+  },
+  averageCost: Number,
+  photo: {
+    type: String,
+    default: "no-photo.jpg",
+  },
+  housing: {
+    type: Boolean,
+    default: false,
+  },
+  jobAssistance: {
+    type: Boolean,
+    default: false,
+  },
+  jobGuarantee: {
+    type: Boolean,
+    default: false,
+  },
+  acceptGi: {
+    type: Boolean,
+    default: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  lastUpdatedBy: String,
 });
 // Create bootamp slug from the name
 BootcampSchema.pre("save", async function (next) {
@@ -102,12 +105,12 @@ BootcampSchema.pre("save", async function (next) {
   this.location = {
     type: "Point",
     coordinates: [loc[0].longitude, loc[0].latitude],
-    formattedAddress: loc.formattedAddress,
-    street: loc.streetName,
-    city: loc.city,
-    state: loc.stateCode,
-    zipcode: loc.zipcode,
-    country: loc.countryCode,
+    formattedAddress: loc[0].formattedAddress,
+    street: loc[0].streetName,
+    city: loc[0].city,
+    state: loc[0].stateCode,
+    zipcode: loc[0].zipcode,
+    country: loc[0].countryCode,
   };
   //Now don't save address
   this.address = undefined;

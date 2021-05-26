@@ -10,11 +10,9 @@ getBootcamps = asyncHandler(async (req, res, next) => {
     /\b(gt|lt|gte|lte|in)\b/g,
     (match) => `$${match}`
   );
-  console.log(JSON.parse(queryString));
-  //queryString = { averageCost: { $gte: 20 } };
-  //this needs to be fixed for gte, in etc
+  //console.log(`queryString ${queryString}`);
   let query = Bootcamp.find(JSON.parse(queryString));
-  //let query = Bootcamp.find({ averageCost: { $gte: "20" } });
+  //let query = Bootcamp.find({ careers: { $in: "Business" } });
   const bootcamps = await query;
   res.status(200).json({
     success: true,
