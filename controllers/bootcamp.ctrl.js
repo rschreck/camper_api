@@ -5,14 +5,28 @@ const asyncHandler = require("../middleware/asyncHandler");
 //  @routes Get /v1/bootcamps
 //  @access Public
 getBootcamps = asyncHandler(async (req, res, next) => {
-  let queryString = JSON.stringify(req.query);
+  const reqQuery = { ...req.query };
+  const removeFields = ["select", "sort"];
+  removeFields.forEach((match) => delete reqQuery[match]);
+  let queryString = JSON.stringify(reqQuery);
+
   queryString = queryString.replace(
     /\b(gt|lt|gte|lte|in)\b/g,
     (match) => `$${match}`
   );
-  //console.log(`queryString ${queryString}`);
   let query = Bootcamp.find(JSON.parse(queryString));
-  //let query = Bootcamp.find({ careers: { $in: "Business" } });
+  //select
+  if (req.query.select) {
+    const fields = req.query.select.split(",").join(" ");
+    query = query.select(fields);
+  }
+  //sort
+  if (req.query.sort) {
+    const sortBy = req.query.sort.split(",").join(" ");
+    query = query.sort(sortBy);
+  } else {
+    query = qery.sort("-createdAt");
+  }
   const bootcamps = await query;
   res.status(200).json({
     success: true,
