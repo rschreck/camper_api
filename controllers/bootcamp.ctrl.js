@@ -6,7 +6,8 @@ const asyncHandler = require("../middleware/asyncHandler");
 //  @access Public
 getBootcamps = asyncHandler(async (req, res, next) => {
   const reqQuery = { ...req.query };
-  const removeFields = ["select", "sort"];
+
+  const removeFields = ["select", "sort", "limit", "page", "skip"];
   removeFields.forEach((match) => delete reqQuery[match]);
   let queryString = JSON.stringify(reqQuery);
 
@@ -25,13 +26,35 @@ getBootcamps = asyncHandler(async (req, res, next) => {
     const sortBy = req.query.sort.split(",").join(" ");
     query = query.sort(sortBy);
   } else {
-    query = qery.sort("-createdAt");
+    query = query.sort("-createdAt");
   }
+  //pagination
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 100;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  const total = await Bootcamp.countDocuments();
+  console.log(`${limit} ${startIndex}`);
+  query = query.skip(startIndex).limit(limit);
   const bootcamps = await query;
+  const pagination = {};
+  if (endIndex < total) {
+    pagination.next = {
+      page: page + 1,
+      limit,
+    };
+    if (startIndex > 0) {
+      pagination.prev = {
+        page: page - 1,
+        limit,
+      };
+    }
+  }
   res.status(200).json({
     success: true,
     message: "Show all bootcamps",
     count: bootcamps.length,
+    pagination,
     data: bootcamps,
   });
 });

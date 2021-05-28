@@ -13,6 +13,9 @@ http://localhost:4001/v1/bootcamps?careers[in]=Business
 http://localhost:4001/v1/bootcamps?select=name,description&location.state=MA
 http://localhost:4001/v1/bootcamps?select=name,description&sort=name --asc
 http://localhost:4001/v1/bootcamps?select=name,description&sort=-name --desc
+http://localhost:4001/v1/bootcamps?limit=2&select=name&page=2 = second page and limit 2
+http://localhost:4001/v1/bootcamps?limit=2 - first page = two records
+http://localhost:4001/v1/bootcamps?limit=1&select=name&page=2
 /v1/bootcamps?averageCost{gte}=100 --does not work yet
 /v1/bootcamps/radius/02118/100 GET - bring 3
 /v1/bootcamps/radius/02118/10 GET - bring 1
