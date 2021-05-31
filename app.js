@@ -5,12 +5,16 @@ const router = express.Router();
 app.use(express.json());
 const dotenv = require("dotenv");
 const colors = require("colors");
+const path = require("path");
+const fileupload = require("express-fileupload");
 const fs = require("fs");
 const connectDB = require("./models/db");
 //Route files
-const bootcamps = require("./routes/bootcamp");
+const bootcamps = require("./routes/bootcamps");
+const courses = require("./routes/courses");
 const root = require("./routes/root");
 const { errorHandler } = require("./middleware/errorHandler");
+const { static } = require("express");
 //get db
 ntlm = require("express-ntlm");
 dotenv.config({
@@ -18,6 +22,10 @@ dotenv.config({
 });
 
 connectDB();
+//add fileupload
+app.use(fileupload());
+//set static folder for publics
+app.use(express.static(path.join(__dirname, "public")));
 
 // a middleware function with no mount path. This code is executed for every request to the router
 app.use(function (req, res, next) {
@@ -26,6 +34,7 @@ app.use(function (req, res, next) {
 });
 app.use("/", root);
 app.use("/v1/bootcamps", bootcamps);
+app.use("/v1/courses", courses);
 
 const apidocs = fs.readFileSync("./docs/apidocs.json");
 app.use(errorHandler);
