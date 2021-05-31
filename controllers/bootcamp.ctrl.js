@@ -2,6 +2,7 @@ const Bootcamp = require("../models/Bootcamp");
 const { ErrorResponse } = require("../utils/ErrorResponse");
 const geocoder = require("../utils/geoCoder");
 const asyncHandler = require("../middleware/asyncHandler");
+const path = require("path");
 //  @routes Get /v1/bootcamps
 //  @access Public
 getBootcamps = asyncHandler(async (req, res, next) => {
@@ -15,7 +16,8 @@ getBootcamps = asyncHandler(async (req, res, next) => {
     /\b(gt|lt|gte|lte|in)\b/g,
     (match) => `$${match}`
   );
-  let query = Bootcamp.find(JSON.parse(queryString));
+  //"courses" is from the ref from BootcampSchema.virtual("courses"
+  let query = Bootcamp.find(JSON.parse(queryString)).populate("courses");
   //select
   if (req.query.select) {
     const fields = req.query.select.split(",").join(" ");
@@ -34,7 +36,6 @@ getBootcamps = asyncHandler(async (req, res, next) => {
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
   const total = await Bootcamp.countDocuments();
-  console.log(`${limit} ${startIndex}`);
   query = query.skip(startIndex).limit(limit);
   const bootcamps = await query;
   const pagination = {};
@@ -111,17 +112,69 @@ updateBootcamp = asyncHandler(async (req, res, next) => {
 //  @access Public
 deleteBootcamp = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-
-  const bootcamp = await Bootcamp.findByIdAndDelete(id);
+  //Now instead of using findbyiddelete, we need to use remove
+  //const bootcamp = await Bootcamp.findByIdAndDelete(id);
+  const bootcamp = await Bootcamp.findById(id);
   if (!bootcamp) {
     return next(
       new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
     );
   }
+  bootcamp.remove();
   res
     .status(200)
     .json({ success: true, message: `Delete bootcamp - ${id}`, data: [] });
 });
+//  @desc   file upload single bootcamp
+//  @routes PUT /v1/bootcamps/:id
+//  @access Public
+uploadBootcampImg = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  //Now instead of using findbyiddelete, we need to use remove
+  //const bootcamp = await Bootcamp.findByIdAndDelete(id);
+  let bootcamp = await Bootcamp.findById(id);
+  if (!bootcamp) {
+    return next(
+      new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
+    );
+  }
+  if (!req.files) {
+    return next(new ErrorResponse(`Image is missing`, 400));
+  }
+  const file = req.files.file;
+
+  if (!file.mimetype.startsWith("image")) {
+    return next(new ErrorResponse(`Only Image kind of files allowed`, 400));
+  }
+  //check file size
+
+  if (file.size > process.env.MAX_FILE_UPLOAD) {
+    return next(
+      new ErrorResponse(
+        `File Size should be less than ${process.env.MAX_FILE_UPLOAD} `,
+        400
+      )
+    );
+  }
+  //create custom filename
+  file.name = `photo_${bootcamp._id}${path.parse(file.name).ext}`;
+  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
+    if (err) {
+      console.log(`file upload ${err}`);
+      return next(new ErrorResponse(`File upload error `, 400));
+    }
+    bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, {
+      photo: file.name,
+    });
+  });
+
+  res.status(200).json({
+    success: true,
+    message: `File Upload bootcamp - ${id}`,
+    data: bootcamp,
+  });
+});
+
 //  @desc   get bootcamps within radius
 //  @routes GET /v1/bootcamps/radius/:zipcode/:distance
 //  @access Public
@@ -155,4 +208,5 @@ module.exports = {
   updateBootcamp,
   deleteBootcamp,
   getBootcampsInRadius,
+  uploadBootcampImg,
 };

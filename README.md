@@ -16,6 +16,15 @@ http://localhost:4001/v1/bootcamps?select=name,description&sort=-name --desc
 http://localhost:4001/v1/bootcamps?limit=2&select=name&page=2 = second page and limit 2
 http://localhost:4001/v1/bootcamps?limit=2 - first page = two records
 http://localhost:4001/v1/bootcamps?limit=1&select=name&page=2
+http://localhost:4001/v1/courses
+http://localhost:4001/v1/bootcamps/5d725a1b7b292f5f8ceff788/courses
+
+DETELE-
+http://localhost:4001/v1/courses/5d725c84c4ded7bcb480eaa0
+PUT -
+http://localhost:4001/v1/courses/5d725ce8c4ded7bcb480eaa3
+{"tuition": 9002
+}
 /v1/bootcamps?averageCost{gte}=100 --does not work yet
 /v1/bootcamps/radius/02118/100 GET - bring 3
 /v1/bootcamps/radius/02118/10 GET - bring 1
