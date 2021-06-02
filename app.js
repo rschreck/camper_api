@@ -12,6 +12,7 @@ const connectDB = require("./models/db");
 //Route files
 const bootcamps = require("./routes/bootcamps");
 const courses = require("./routes/courses");
+const auth = require("./routes/auth");
 const root = require("./routes/root");
 const { errorHandler } = require("./middleware/errorHandler");
 const { static } = require("express");
@@ -35,6 +36,7 @@ app.use(function (req, res, next) {
 app.use("/", root);
 app.use("/v1/bootcamps", bootcamps);
 app.use("/v1/courses", courses);
+app.use("/v1/auth", auth);
 
 const apidocs = fs.readFileSync("./docs/apidocs.json");
 app.use(errorHandler);

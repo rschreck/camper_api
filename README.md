@@ -33,3 +33,15 @@ node seeder.js -d
 
 query
 /v1/bootcamps?averageCost[gte]=8000&location.state=RI
+
+http://localhost:4001/v1/auth/register
+
+http://localhost:4001/v1/auth/login PUT
+
+body
+{
+
+    "email":"xxx@gmail.com",
+    "password":""
+
+}
