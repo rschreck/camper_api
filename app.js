@@ -16,6 +16,7 @@ const auth = require("./routes/auth");
 const root = require("./routes/root");
 const { errorHandler } = require("./middleware/errorHandler");
 const { static } = require("express");
+const cookieParser = require("cookie-parser");
 //get db
 ntlm = require("express-ntlm");
 dotenv.config({
@@ -25,6 +26,9 @@ dotenv.config({
 connectDB();
 //add fileupload
 app.use(fileupload());
+//add cookie parser
+app.use(cookieParser());
+
 //set static folder for publics
 app.use(express.static(path.join(__dirname, "public")));
 
