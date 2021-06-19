@@ -49,5 +49,5 @@ body
 after protection is added,
 get token with above endpoint
 add "Authorization" in headers with token as
-"Bearer BLAH BLAH token like eyJbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjU4ODdmZjE5MGU2NDRiNGZkOTZhZSIsImlhdCI6MTYyMjY4MzE2OCwiZXhwIjoxNjI1Mjc1MTY4fQ.W-Ip2-\_Fr7cYqCEbUD6InUeALqjiNWWwExvms"
+"Bearer token like eyJbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjU4ODdmZjE5MGU2NDRiNGZkOTZhZSIsImlhdCI6MTYyMjY4MzE2OCwiZXhwIjoxNjI1Mjc1MTY4fQ.W-Ip2-\_Fr7cYqCEbUD6InUeALqjiNWWwExvms"
 http://localhost:4001/v1/auth/me
