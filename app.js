@@ -7,6 +7,12 @@ const dotenv = require("dotenv");
 const colors = require("colors");
 const path = require("path");
 const fileupload = require("express-fileupload");
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const mongoSanitize = require("express-mongo-sanitize");
+const hpp = require("hpp");
+const cors = require("cors");
+const expressRateLimit = require("express-rate-limit");
 const fs = require("fs");
 const connectDB = require("./models/db");
 //Route files
@@ -28,7 +34,12 @@ connectDB();
 app.use(fileupload());
 //add cookie parser
 app.use(cookieParser());
-
+app.use(helmet());
+app.use(xss());
+app.use(hpp());
+app.use(cors());
+app.use(mongoSanitize());
+app.use(expressRateLimit());
 //set static folder for publics
 app.use(express.static(path.join(__dirname, "public")));
 

@@ -51,3 +51,9 @@ get token with above endpoint
 add "Authorization" in headers with token as
 "Bearer token like eyJbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjU4ODdmZjE5MGU2NDRiNGZkOTZhZSIsImlhdCI6MTYyMjY4MzE2OCwiZXhwIjoxNjI1Mjc1MTY4fQ.W-Ip2-\_Fr7cYqCEbUD6InUeALqjiNWWwExvms"
 http://localhost:4001/v1/auth/me
+
+Docgen - download binary from
+https://github.com/thedevsaddam/docgen
+
+then found the file - windows_amd64.exe
+Run command windows_amd64 build -i API.postman_collection.json -o index.html
