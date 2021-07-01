@@ -33,5 +33,32 @@ node seeder.js -d
 
 query
 /v1/bootcamps?averageCost[gte]=8000&location.state=RI
+<<<<<<< HEAD
 docgen - install windows_amd64 from web(Search for docgen)
 cmd promptwindows_amd64 build -i devcamper.postman_collection.json -o index2.html
+=======
+
+http://localhost:4001/v1/auth/register
+
+http://localhost:4001/v1/auth/login PUT
+
+body
+{
+
+    "email":"xxx@gmail.com",
+    "password":""
+
+}
+
+after protection is added,
+get token with above endpoint
+add "Authorization" in headers with token as
+"Bearer token like eyJbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYjU4ODdmZjE5MGU2NDRiNGZkOTZhZSIsImlhdCI6MTYyMjY4MzE2OCwiZXhwIjoxNjI1Mjc1MTY4fQ.W-Ip2-\_Fr7cYqCEbUD6InUeALqjiNWWwExvms"
+http://localhost:4001/v1/auth/me
+
+Docgen - download binary from
+https://github.com/thedevsaddam/docgen
+
+then found the file - windows_amd64.exe
+Run command windows_amd64 build -i API.postman_collection.json -o index.html
+>>>>>>> 5d732b41951e2a13f7532e34890815f7e497272b
