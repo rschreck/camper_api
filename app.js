@@ -7,14 +7,22 @@ const dotenv = require("dotenv");
 const colors = require("colors");
 const path = require("path");
 const fileupload = require("express-fileupload");
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const mongoSanitize = require("express-mongo-sanitize");
+const hpp = require("hpp");
+const cors = require("cors");
+const expressRateLimit = require("express-rate-limit");
 const fs = require("fs");
 const connectDB = require("./models/db");
 //Route files
 const bootcamps = require("./routes/bootcamps");
 const courses = require("./routes/courses");
+const auth = require("./routes/auth");
 const root = require("./routes/root");
 const { errorHandler } = require("./middleware/errorHandler");
 const { static } = require("express");
+const cookieParser = require("cookie-parser");
 //get db
 ntlm = require("express-ntlm");
 dotenv.config({
@@ -24,6 +32,14 @@ dotenv.config({
 connectDB();
 //add fileupload
 app.use(fileupload());
+//add cookie parser
+app.use(cookieParser());
+app.use(helmet());
+app.use(xss());
+app.use(hpp());
+app.use(cors());
+app.use(mongoSanitize());
+app.use(expressRateLimit());
 //set static folder for publics
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -35,6 +51,7 @@ app.use(function (req, res, next) {
 app.use("/", root);
 app.use("/v1/bootcamps", bootcamps);
 app.use("/v1/courses", courses);
+app.use("/v1/auth", auth);
 
 const apidocs = fs.readFileSync("./docs/apidocs.json");
 app.use(errorHandler);
