@@ -61,4 +61,5 @@ https://github.com/thedevsaddam/docgen
 
 then found the file - windows_amd64.exe
 Run command windows_amd64 build -i API.postman_collection.json -o index.html
->>>>>>> 5d732b41951e2a13f7532e34890815f7e497272b
+
+> > > > > > > 5d732b41951e2a13f7532e34890815f7e497272b
