@@ -33,3 +33,5 @@ node seeder.js -d
 
 query
 /v1/bootcamps?averageCost[gte]=8000&location.state=RI
+docgen - install windows_amd64 from web(Search for docgen)
+cmd promptwindows_amd64 build -i devcamper.postman_collection.json -o index2.html
