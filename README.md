@@ -34,6 +34,7 @@ node seeder.js -d
 query
 /v1/bootcamps?averageCost[gte]=8000&location.state=RI
 
+
 http://localhost:4001/v1/auth/register
 
 http://localhost:4001/v1/auth/login PUT
@@ -57,3 +58,4 @@ https://github.com/thedevsaddam/docgen
 
 then found the file - windows_amd64.exe
 Run command windows_amd64 build -i API.postman_collection.json -o index.html
+
